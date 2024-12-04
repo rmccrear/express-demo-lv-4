@@ -25,7 +25,6 @@ This is a simple demo of Express.js. It is a simple web server that listens on p
  * This is a starting point for building a RESTful API with Express.
  * See the other branches for more details
 
-
 ## Installation
 
 To install the dependencies, run:
@@ -44,3 +43,8 @@ npm start
 
 Then, open your web browser and navigate to [http://localhost:3000](http://localhost:3000).
 
+## Accessing the API
+
+Open Postman and make a GET request to [http://localhost:3000/cats](http://localhost:3000/cats) to see a list of cats.
+
+Make a POST request to [http://localhost:3000/cats](http://localhost:3000/cats) with a JSON body to create a new cat. 
