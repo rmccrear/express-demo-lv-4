@@ -5,31 +5,33 @@ const app = express();
 // middleware for json POST body
 app.use(express.json());
 
-const cats = [
-  { "name": "Fluffy", age: 2 },
-  { "name": "Frisky", age: 5 },
-  { "name": "Tank", age: 1 }
-];
-
 app.get("/", (req, res) => {
   res.send("hello");
 });
 
 app.get("/cats", (req, res) => {
-  res.json(cats);
+  res.json([
+    { "name": "Fluffy" },
+    { "name": "Frisky" },
+    { "name": "Tank" }
+  ]);
 });
 
 app.get("/cats/:id", (req, res) => {
   const id = req.params.id;
-  res.json(cats[id]);
+  const s = req.query.sepia;
+  console.log(s);
+
+  res.json({
+    name: "cat number " + id
+  });
 })
 
 // cat resource
 app.post("/cats", (req, res) => {
   const data = req.body;
+  console.log(data.name);
   if (data.name) {
-    cats.push(data);
-    console.log(cats);
     res.status(200).send(data);
   } else {
     res.status(400).send({
