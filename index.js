@@ -126,6 +126,15 @@ app.get('/hamsters/:id', (req, res) => {
   })
 });
 
+// middleware
+const handle404 = (req, res, next) => {
+  res.status(404).json({
+    message: "Cannot find"
+  })
+}
+
+app.use(handle404);
+
 
 app.listen(3000, () => {
   console.log("started server!!! on port 3000")
