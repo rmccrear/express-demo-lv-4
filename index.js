@@ -35,11 +35,17 @@
 
 */
 import express from 'express';
+import homesRoute from './routes/homes.js';
+import songsRoute from './routes/songs.js';
+
 
 const app = express();
 
 // middleware for json POST body
 app.use(express.json());
+
+app.use("/homes", homesRoute);
+app.use('/songs', songsRoute);
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -64,7 +70,7 @@ app.get("/cats/:id", (req, res) => {
 })
 
 // cat resource
-app.post("/cats", (req, res) => {
+app.post("/cats", (req,res) => {
   const data = req.body;
   console.log(data.name);
   if (data.name) {
@@ -77,28 +83,28 @@ app.post("/cats", (req, res) => {
 
 });
 
-app.post("/homes", (req, res) => {
-  const homesData = req.body;
-  console.log(homesData.name);
-  res.status(200).send(homesData);
-});
+// app.post("/homes", (req, res) => {
+//   const homesData = req.body;
+//   console.log(homesData.name);
+//   res.status(200).send(homesData);
+// });
 
-app.get('/names/:nameId', (req, res) => {
-  const x = req.params.nameId;
-  console.log(x);
-  res.json({
-    "name": "name" + x
-  })
-});
+// app.get('/names/:nameId', (req, res) => {
+//   const x = req.params.nameId;
+//   console.log(x);
+//   res.json({
+//     "name": "name" + x
+//   })
+// });
 
-app.get("/homes", (req, res) => {
-  res.json([
-    { name: "Craftsman" },
-    { name: "Lulemon" },
-    { name: "Shotgun"}
+// app.get("/homes", (req, res) => {
+//   res.json([
+//     { name: "Craftsman" },
+//     { name: "Lulemon" },
+//     { name: "Shotgun"}
 
-  ])
-});
+//   ])
+// });
 
 
 
@@ -129,11 +135,15 @@ app.get('/hamsters/:id', (req, res) => {
 // middleware
 const handle404 = (req, res, next) => {
   res.status(404).json({
-    message: "Cannot find"
+    message: "Cannot find resource."
   })
 }
-
 app.use(handle404);
+// app.use((req, res, next) => {
+//   res.status(404).json({
+//     message: "Cannot find"
+//   })
+// });
 
 
 app.listen(3000, () => {
