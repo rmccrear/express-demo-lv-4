@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
-import songsData from '../songsData.json' assert { type: 'json' };
+// import songsData from '../songsData.json' assert { type: 'json' };
+import songsData from "../songsData.json" with { type: "json" };
 
 
 const songsRoute = new Router();
