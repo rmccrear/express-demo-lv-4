@@ -38,11 +38,23 @@ import express from 'express';
 import homesRoute from './routes/homes.js';
 import songsRoute from './routes/songs.js';
 
-
+import { meower } from './middleware/meower.js';
+import { dateLogger } from './middleware/dateLogger.js';
+import { daysToXmas } from './middleware/daysToXmas.js';
+import { catchPhrase } from './middleware/groupMiddleware.js';
+import { cowSay } from './middleware/groupMiddleware.js'
+import { authUser } from './middleware/groupMiddleware.js';
 const app = express();
 
 // middleware for json POST body
 app.use(express.json());
+
+app.use(daysToXmas);
+app.use(meower);
+app.use(dateLogger);
+app.use(catchPhrase);
+app.use(cowSay);
+app.use(authUser);
 
 app.use("/homes", homesRoute);
 app.use('/songs', songsRoute);
@@ -63,9 +75,13 @@ app.get("/cats/:id", (req, res) => {
   const id = req.params.id;
   const s = req.query.sepia;
   console.log(s);
+  if(req.user){
+    console.log("You are requesting cats as user: " + req.user.name);
+  }
 
   res.json({
-    name: "cat number " + id
+    name: "cat number " + id,
+    "message": `the cat wants you to know that there are ${req.daysToXmas} days to Xmas`
   });
 })
 
@@ -144,8 +160,6 @@ app.use(handle404);
 //     message: "Cannot find"
 //   })
 // });
-
-
 app.listen(3000, () => {
   console.log("started server!!! on port 3000")
 })

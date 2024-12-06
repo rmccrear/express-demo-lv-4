@@ -48,3 +48,24 @@ Then, open your web browser and navigate to [http://localhost:3000](http://local
 Open Postman and make a GET request to [http://localhost:3000/cats](http://localhost:3000/cats) to see a list of cats.
 
 Make a POST request to [http://localhost:3000/cats](http://localhost:3000/cats) with a JSON body to create a new cat. 
+
+## Routes and Nested Routes
+
+### Routes
+
+Routes are used to define the paths that the server will respond to. They are defined using the `app.get()`, `app.post()`, `app.put()`, and `app.delete()` methods on the express application object. [Example](https://github.com/rmccrear/express-demo-lv-4/blob/models-day-2/index.js)
+
+### Models - the M inMVC
+
+Models are used to define the data that the server will work with. They are defined as classes that represent the data that the server will work with. [Example: see the cats object, here.](https://github.com/rmccrear/express-demo-lv-4/blob/models-day-2/index.js)
+
+### Nested Routes
+
+Nested routes are used to define routes that are nested within other routes. They are defined by chaining route handlers together using the `app.use("/cats", catRoutes )` method. [Example](https://github.com/rmccrear/express-demo-lv-4/blob/routes-day-3/routes/songs.js)
+
+
+## Middleware
+
+Middleware is used to process requests before they are handled by the route handler. They run in the order they are defined in the code. After competing, the must call `next()` to pass control to the next middleware in the chain.
+
+![Middleware Diagram](./docs/middleware-diagram.png)
